@@ -10,12 +10,12 @@
   <select name='animalNoise[]' size=5 multiple="multiple">
     <option value='pig:squeel'>Pig
     <option value='duck:quack'>Duck
-    <option value='cow:moo'>Cow
-    <option value='sheep:baa'>Sheep
+    <option value='cow:mooo'>Cow
+    <option value='sheep:baaa'>Sheep
     <option value='horse:neigh'>Horse
-    <option value='dog:woof'>Dog
+    <option value='dog:arf'>Dog
     <option value='cat:meow'>Cat
-    <option value='rooster:cock-a-doodle-doo'>Rooster
+    <option value='rooster:cock'>Rooster
   </select></p>
   <input type='submit' value='Sing!'>
 </form>
