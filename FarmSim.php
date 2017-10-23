@@ -8,7 +8,7 @@
 <form action='week8.php' method='POST'>
   <p>Select as many animals as you would like:<br/>
   <select name='animalNoise[]' size=5 multiple="multiple">
-    <option value='pig:oink'>Pig
+    <option value='pig:squeel'>Pig
     <option value='duck:quack'>Duck
     <option value='cow:moo'>Cow
     <option value='sheep:baa'>Sheep
