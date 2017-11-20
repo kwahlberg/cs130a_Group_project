@@ -17,9 +17,11 @@ function displayURL($path) {
 }
 //displays list of urls takes array of strings
 function listURL($urlarray){
+	global $full_directory;
         if(is_array($urlarray)){
                 foreach($urlarray as $value){
-                        displayURL($value);
+			echo $full_directory . "/" . $value;
+                        displayURL($full_directory . "/" . $value);
                 }
         }
 }

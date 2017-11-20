@@ -4,36 +4,41 @@ if (isset($_GET['source'])) {
 	exit;
 }
 
+$base_directory = getcwd();
+$active_directory = "/data";
+$full_directory = $base_directory . $active_directory;
+
 // Creates a folder, parameter accepts must accept absolute path only, returns a string with message.
 function makeDirectory($name) {
 	
-	message = "Folder created successfully!";
+	$message = "Folder created successfully!";
+	global $full_directory;
 
-	if (file_exists($name)) {
-		message = "The folder already exists!";
-	} else if (!mkdir($name, 0777)) {
-		message = "Something happened! Could not create directory.";
+	if (file_exists($full_directory . "/" . $name)) {
+		$message = "The folder already exists!";
+	} else if (!mkdir($full_directory . "/" . $name, 0755)) {
+		$message = "Something happened! Could not create folder.";
 	}
 
-	return message;
+	return $message;
 }
 
 // Returns an array of file paths of the current directory, parameter is absolute path of directory scan.
 function getFiles($name) {
-	return scandir($name);
+	listURL(scandir($name));
 }
 
 // Moves a file from absolute directory to absolute directory. returns a string with message.
 function moveFiles($origin, $destination) {
 
-	message = "File moved successfully!";
+	$message = "File moved successfully!";
 
-	if (file_exists($destination) {
-		message = "There is another file with the same name at the destination";
+	if (file_exists($destination)) {
+		$message = "There is another file with the same name at the destination";
 	} else if (!rename($origin, $destination)) {
-		message = "Something went wrong! File was not moved.";
+		$message = "Something went wrong! File was not moved.";
 	}
 
-	return message;
+	return $message;
 }
 ?>
