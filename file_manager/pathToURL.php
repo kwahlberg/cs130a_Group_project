@@ -1,36 +1,42 @@
 <?php
-  if (isset($_GET['source'])) {
-    highlight_file($_SERVER['SCRIPT_FILENAME']);
-    exit;
-  }
-// diplays a single url as full url. takes relative path as arg.
-function displayURL($path) {
-        global $full_directory;
-        if(preg_match("/^[A-Za-z0-9_ ]+\.([A-Za-z0-9]+$)/", $path)){
+if (isset($_GET['source'])) {
+        highlight_file($_SERVER['SCRIPT_FILENAME']);
+        exit;
+}
+$base_directory = getcwd();
+$active_directory = "/data";
+$full_directory = $base_directory . $active_directory;
+// Creates a folder, parameter accepts must accept absolute path only, returns $
+function makeDirectory($name) {
 
-                $dir_split = preg_split("/\/public_html/", $full_directory);
-                //echo "$dir_split[0]";
-                $user = '/'.'~'. substr($dir_split[0], strrpos($dir_split[0], '/') + 1);;
-                $full_path ='https://'. $_SERVER['SERVER_NAME'] . $user . $dir_split[1] . '/' . $path;
-                echo "<p><a href = '$full_path'>" .$full_path . "</a></p>";
-                //echo "<p>resource not found. Please check path and try again</p>";
-        }
-}
-//displays list of urls takes array of strings
-function listURL($urlarray){
+        $message = "Folder created successfully!";
         global $full_directory;
-        if(is_array($urlarray)){
-                foreach($urlarray as $value){
-                        //echo $full_directory . "/" . $value;
-                        displayURL($value);
-                }
+        if (file_exists($full_directory . "/" . $name)) {
+                $message = "The folder already exists!";
+        } else if (!mkdir($full_directory . "/" . $name, 0755)) {
+                $message = "Something happened! Could not create folder.";
         }
+	return $message;
 }
-//examples
-//displayURL('../cs130a/week11.php');
-//$urls = ['week10.php','../test/test.php','week3.php'];
-//listURL($urls);
+// Returns an array of file paths of the current directory, parameter is absolu$
+function getFiles($name) {
+        listURL(scandir($name));
+}
+// Moves a file from absolute directory to absolute directory. returns a string$
+function moveFiles($origin, $destination) {
+        $message = "File moved successfully!";
+        if (file_exists($destination)) {
+                $message = "There is another file with the same name at the des$
+        } else if (!rename($origin, $destination)) {
+                $message = "Something went wrong! File was not moved.";
+        }
+	return $message;
+}
 ?>
+
+
+
+
 
 
 
