@@ -6,10 +6,10 @@
 // diplays a single url as full url. takes relative path as arg.
 function displayURL($path) {
         global $full_directory;
-        if($path != '.' && $path != '..'){
+        if(preg_match("/^[A-Za-z0-9_ ]+\.([A-Za-z0-9]+$)/", $path)){
 
                 $dir_split = preg_split("/\/public_html/", $full_directory);
-                echo "$dir_split[0]";
+                //echo "$dir_split[0]";
                 $user = '/'.'~'. substr($dir_split[0], strrpos($dir_split[0], '/') + 1);;
                 $full_path ='https://'. $_SERVER['SERVER_NAME'] . $user . $dir_split[1] . '/' . $path;
                 echo "<p><a href = '$full_path'>" .$full_path . "</a></p>";
