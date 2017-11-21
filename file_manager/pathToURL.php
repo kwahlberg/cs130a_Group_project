@@ -5,23 +5,24 @@
   }
 // diplays a single url as full url. takes relative path as arg.
 function displayURL($path) {
-        if(file_exists($path)){
-                $fullurl = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-                $fullurl = substr($fullurl, 0,strrpos($fullurl, '/')) .'/'. $path;
+        global $full_directory;
+        if($path != '.' && $path != '..'){
 
-                echo "<p><a href = '//$fullurl'>" .$fullurl . "</a></p>";
-        }else{
-              	echo "<p>resource not found. Please check path and try again</p>";
-
+                $dir_split = preg_split("/\/public_html/", $full_directory);
+                echo "$dir_split[0]";
+                $user = '/'.'~'. substr($dir_split[0], strrpos($dir_split[0], '/') + 1);;
+                $full_path ='https://'. $_SERVER['SERVER_NAME'] . $user . $dir_split[1] . '/' . $path;
+                echo "<p><a href = '$full_path'>" .$full_path . "</a></p>";
+                //echo "<p>resource not found. Please check path and try again</p>";
         }
 }
 //displays list of urls takes array of strings
 function listURL($urlarray){
-	global $full_directory;
+        global $full_directory;
         if(is_array($urlarray)){
                 foreach($urlarray as $value){
-			echo $full_directory . "/" . $value;
-                        displayURL($full_directory . "/" . $value);
+                        //echo $full_directory . "/" . $value;
+                        displayURL($value);
                 }
         }
 }
@@ -29,7 +30,7 @@ function listURL($urlarray){
 //displayURL('../cs130a/week11.php');
 //$urls = ['week10.php','../test/test.php','week3.php'];
 //listURL($urls);
-
 ?>
+
 
 
