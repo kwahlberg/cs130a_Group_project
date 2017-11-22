@@ -1,8 +1,11 @@
 <!doctype html>
 
 <?php
+
+session_start();
 include("directoryViewer.php");
 include("pathToURL.php");
+
 ?>
 
 <html lang="en">
@@ -28,16 +31,16 @@ include("pathToURL.php");
 <?php
 
 if (!empty($_POST)) {
-      if ( !empty($_POST["moveto_folder"]) ) {
-		      echo "<p>Current Folder: " . $full_directory . "/" . $_POST["moveto_folder"] . "</p>";
-          getFiles($full_directory . "/" . $_POST["moveto_folder"]);
-      }
-} else {
-		echo "<p>Current Folder: " . $full_directory . "</p>";
-		getFiles($full_directory);
-		//header("Refresh:0");
+  header("Refresh:0");
 }
 
+if( !empty($_SESSION["currentDir"]) ) {
+  echo "<p>Current Folder: " . $_SESSION["currentDir"] . "</p>";
+  getFiles($_SESSION["currentDir"]);
+} else {
+  $_SESSION["currentDir"] = $full_directory;
+  header("Refresh:0");
+}
 
 ?>
 </ul>
@@ -53,40 +56,54 @@ if (!empty($_POST)) {
   <input type="submit" name="open" value="Open Folder">
   <h1>Go Up One Level</h1>
   <input type="submit" name="up" value="Go Up One Level">
+  <input type="submit" name="root" value="Go to Root Folder">
   <h1>Move a File to Folder</h1>
   <p>File Name: <input type="text" value="" name="selected_file"></p>
-  <p>Folder Destination: <input type="text" value="" name="selected_folder"></p>
+  <p>Folder Name: <input type="text" value="" name="selected_folder"></p>
   <input type="submit" name="move" value="Move File">
 </form>
+<h1>Upload Files</h1>
+<p>Click <a href="uploadFiles.php">here</a> to upload files.</p>
 </div>
 
 <?php
 
 if (!empty($_POST)) {
-  var_dump($_POST);
 
 	if (isset($_POST["folder"])) {
 
 		if (!empty($_POST["new_directory"])) {
-      makeDirectory($_POST["new_directory"]);
+      makeDirectory(sanitizeData($_POST["new_directory"], false), $_SESSION["currentDir"]);
     }
 
   }
 
 	if (isset($_POST["open"])) {
 
-		if (file_exists($full_directory . "/" . $_POST["moveto_folder"])) {
-			//REGEX NEEDED TO AVOID GOING OUT OF ROOT
-			if ($_POST["moveto_folder"] !== ".." || $_POST["moveto_folder"] !== "/..") {
-				$active_directory = $active_directory . "/" . $_POST["moveto_folder"];
-        echo $active_directory;
-			}
+		if (file_exists($_SESSION["currentDir"] . "/" . sanitizeData($_POST["moveto_folder"], false))) {
+				$_SESSION["currentDir"] = $_SESSION["currentDir"] . "/" . sanitizeData($_POST["moveto_folder"], false);
 		}
 	}
 
 
 	if (isset($_POST["move"])) {
-    echo moveFiles($full_directory . "/" . $_POST["selected_file"], $full_directory . "/" . $_POST["selected_folder"] . "/" . $_POST["selected_file"]);
+    echo moveFiles($_SESSION["currentDir"] . "/" . sanitizeData($_POST["selected_file"], false), $_SESSION["currentDir"] . "/" . sanitizeData($_POST["selected_folder"], false) . "/" . sanitizeData($_POST["selected_file"], false));
+  }
+
+  if (isset($_POST["up"])) {
+
+    if ( strlen($full_directory) > strlen($_SESSION["currentDir"]) ) {
+      $pattern = "/\/[^\/]*$/";
+      $_SESSION["currentDir"] = sanitizeData($_SESSION["currentDir"], true);
+      $_SESSION["currentDir"] = preg_replace($pattern, "", $_SESSION["currentDir"]);
+    } else {
+      $_SESSION["currentDir"] = $full_directory;
+    }
+
+  }
+
+  if (isset($_POST["root"])) {
+    $_SESSION["currentDir"] = $full_directory;
   }
 
 }

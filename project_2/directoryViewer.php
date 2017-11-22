@@ -4,19 +4,16 @@ if (isset($_GET['source'])) {
 	exit;
 }
 
-$base_directory = getcwd();
-$active_directory = "/data";
-$full_directory = $base_directory . $active_directory;
+$full_directory = getcwd() . "/data";
 
 // Creates a folder, parameter accepts must accept absolute path only, returns a string with message.
-function makeDirectory($name) {
-	
-	$message = "Folder created successfully!";
-	global $full_directory;
+function makeDirectory($folder, $path) {
 
-	if (file_exists($full_directory . "/" . $name)) {
+	$message = "Folder created successfully!";
+
+	if (file_exists($path . "/" . $folder)) {
 		$message = "The folder already exists!";
-	} else if (!mkdir($full_directory . "/" . $name, 0755)) {
+	} else if (!mkdir($path . "/" . $folder, 0755)) {
 		$message = "Something happened! Could not create folder.";
 	}
 
@@ -24,8 +21,20 @@ function makeDirectory($name) {
 }
 
 // Returns an array of file paths of the current directory, parameter is absolute path of directory scan.
-function getFiles($name) {
-	listURL(scandir($name));
+function getFiles($path) {
+	listURL(scandir($path));
+}
+
+function sanitizeData($string, $urlBool) {
+	$pattern = "/[\.*]/";
+	$newString = preg_replace($pattern, "", $string);
+
+	if (!$urlBool) {
+		$pattern = "/[\/*]/";
+		$newString = preg_replace($pattern, "", $newString);
+	}
+
+	return $newString;
 }
 
 // Moves a file from absolute directory to absolute directory. returns a string with message.
