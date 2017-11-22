@@ -12,7 +12,7 @@
 	
 	<body>
 		<h2> Upload File</h2>
-		<form enctype="multipart/form-data" action="{$_SERVER['SCRIPT_URL']}" method = "post">
+		<form enctype="multipart/form-data" action="uploadFiles.php" method = "post">
 			Choose file: <input name= 'uploaded[]' type = 'file'/><br/>
 			<input type="submit" value="Upload"/>
  		</form>
@@ -53,12 +53,12 @@
 		
 		function moveUploadedFile($dirname){
 			//process when submitted file upload
-			if(is_array($_FILES) && count($_FILES) && isset($_FILES[uploaded])){
+			if(is_array($_FILES) && count($_FILES) && isset($_FILES['uploaded'])){
 				foreach ($_FILES['uploaded']['error'] as $key => $error){
 					if($error == UPLOAD_ERR_OK){
-						$tmp_name = $FILES['uploaded']['tmp_name'][$key];
-						$name = basename($_FILES['upload']['name'][$key]);
-						move_uploaded_file($tmp_name, $dirname);
+						$tmp_name = $_FILES['uploaded']['tmp_name'][$key];
+						$name = basename($_FILES['uploaded']['name'][$key]);
+						move_uploaded_file($tmp_name, "$dirname/$name");
 					}
 				}//end foreach
 			}//end if
