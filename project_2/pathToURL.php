@@ -28,7 +28,12 @@ function listURL($path){
                 //print_r($path);
                 $dir_split = preg_split("/\/public_html/", $path);
                 $afterdata = preg_split("/\/data/", $dir_split[1]);
-                $withdata = 'data' . $afterdata[1];
+                
+		if($afterdata[1]){
+			$withdata = 'data' . $afterdata[1];
+		}else{$withdata = 'data';
+		}
+		
                 $karray = scandir($withdata);
         }else{
               	$karray = $path;
