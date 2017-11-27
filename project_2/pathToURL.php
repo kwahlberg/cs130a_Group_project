@@ -5,7 +5,7 @@
   }
 // diplays a single url as full url. takes relative path as arg.
 function displayURL($path,$active_dir) {
-       // global $_SESSION["currentDir"];
+
         if(preg_match("/^[A-Za-z0-9_ ]+\.([A-Za-z0-9]+$)/", $path)){
                 $dir_split = preg_split("/\/public_html/", $_SESSION["currentDir"]);
                 //echo "$dir_split[0]";
@@ -25,26 +25,22 @@ function displayURL($path,$active_dir) {
 //take array or take dir path to create urls from array of file names as strings
 function listURL($path){
         if(!is_array($path)){
-                //print_r($path);
-                if($dir_split = preg_split("/\/public_html/", $path)){
-                	$afterdata = preg_split("/\/data/", $dir_split[1]);
-                
-			if($afterdata = preg_split("/\/data/", $dir_split[1])){
-				$withdata = 'data' . $afterdata[1];
-			}else{$withdata = 'data';
-			}
-			$karray = scandir($withdata);
-		}elseif($karray = scandir($path)){
-		}else
-		{ echo 'Invalid Path';
-		}
-		
+                print_r($path);
+                $dir_split = preg_split("/\/public_html/", $path);
+                $afterdata = preg_split("/\/data/", $dir_split[1]);
+                $withdata = 'data' . $afterdata[1];
+                $karray = scandir($withdata);
+
         }else{
-              $karray = $path;
+              	$karray = $path;
+                $dir_split = preg_split("/\/public_html/", $_SESSION["currentDir"]);
+                $afterdata = preg_split("/\/data/", $dir_split[1]);
+                $withdata = 'data' . $afterdata[1];
         }
 
-	global $full_directory;
-        if(is_array($karray)){
+
+	if(is_array($karray)){
+
                 foreach($karray as $value){
                         //echo "<br>" . "/" . $value;
                         displayURL($value, $withdata);
