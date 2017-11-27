@@ -26,17 +26,21 @@ function displayURL($path,$active_dir) {
 function listURL($path){
         if(!is_array($path)){
                 //print_r($path);
-                $dir_split = preg_split("/\/public_html/", $path);
-                $afterdata = preg_split("/\/data/", $dir_split[1]);
+                if($dir_split = preg_split("/\/public_html/", $path)){
+                	$afterdata = preg_split("/\/data/", $dir_split[1]);
                 
-		if($afterdata[1]){
-			$withdata = 'data' . $afterdata[1];
-		}else{$withdata = 'data';
+			if($afterdata = preg_split("/\/data/", $dir_split[1])){
+				$withdata = 'data' . $afterdata[1];
+			}else{$withdata = 'data';
+			}
+			$karray = scandir($withdata);
+		}elseif($karray = scandir($path)){
+		}else
+		{ echo 'Invalid Path';
 		}
 		
-                $karray = scandir($withdata);
         }else{
-              	$karray = $path;
+              $karray = $path;
         }
 
 	global $full_directory;
