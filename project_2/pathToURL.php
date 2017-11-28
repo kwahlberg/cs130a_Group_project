@@ -19,6 +19,13 @@ function displayURL($path,$active_dir) {
                 echo  $full_path . "</a>";
                 }
                 //echo "<p>resource not found. Please check path and try again</p>";
+        }elseif(preg_match("/^[A-Za-z0-9_\- ]+([A-Za-z0-9]+$)/", $path)){
+                $dir_split = preg_split("/\/public_html/", $_SESSION["currentDir"]);
+                //echo "$dir_split[0]";
+                $user = '/'.'~'. substr($dir_split[0], strrpos($dir_split[0], '/') + 1);
+                $full_path ='https://'. $_SERVER['SERVER_NAME'] . $user . $dir_split[1] . '/' . $path;
+                echo "<p>$full_path</p>";
+
         }
 }
 
