@@ -5,9 +5,9 @@
   <body>
     <header>    
     </header>
+<?php
 
-    
-
+?>
     <footer>
       Copyright
     </footer>
