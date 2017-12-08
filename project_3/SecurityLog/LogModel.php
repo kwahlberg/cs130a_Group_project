@@ -5,7 +5,8 @@ class LogModel{
     private function __construct() {
                 require_once('phplib/app/models/dbadapter.php');
                 //$db_login = parse_ini_file('secure/config.ini');
-                $db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
+                //will need to add your own config file to make this work
+                $db = new dbAdapter('config.ini');
                 if (!$db) echo "<p>Cannot connect to database</p>";
     }
     public function initAdapter(){
