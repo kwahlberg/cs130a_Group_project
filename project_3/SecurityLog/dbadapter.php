@@ -1,4 +1,5 @@
 <?php
+//takes path to config ini as arg
 class dbAdapter {
     protected static $connection;
     
@@ -58,6 +59,7 @@ class dbAdapter {
         if($connection)
         {
             $connection->close();
+            $connection = null;
                       
         }
         return ;
