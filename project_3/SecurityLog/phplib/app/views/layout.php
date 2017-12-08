@@ -3,8 +3,7 @@
   <head>
   </head>
   <body>
-    <header>
-      <a href='/php_mvc_blog'>Home</a>
+    <header>    
     </header>
 
     
