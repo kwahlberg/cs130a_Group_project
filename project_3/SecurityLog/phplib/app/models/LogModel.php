@@ -5,30 +5,35 @@ class LogModel{
     private function __construct() {
                 require_once('phplib/app/models/dbadapter.php');
                 //$db_login = parse_ini_file('secure/config.ini');
-                //will need to add your own config file to make this work
-                $db = new dbAdapter('config.ini');
+                $db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
                 if (!$db) echo "<p>Cannot connect to database</p>";
     }
     public function initAdapter(){
         require_once('phplib/app/models/dbadapter.php');
-        $db = new dbAdapter('config.ini');
+        $db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
         if (!$db) echo "<p>Cannot connect to database</p>";
     }
      public function meanVisit(){
         if(!$db) initAdapter();
-        $result = $db->select('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log;') ;
+        $result = $db->select('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log') ;
         return $result;
     }
     
-    public function logOut($vname){
+    public function logOut($vname, $v_id){
         if(!$db) initAdapter();
         $query = 'INSERT INTO `sec_log`(`ts_out`) VALUES(NOW()) WHERE `v_name` = ' .$db->secureField($vname);
-        $result = $db->query($query) ;
-        return $result;
+        if($result = $db->query($query)){
+        $message = 'Thank you ' .$db->secureField($vname). 'your exit time is ' .$db->query('SELECT `ts_out` FROM `sec_log` WHERE v_id = '.$v_id);
+                }else{
+                    $message = 'something went wrong ';
+             
+                }
+        return $message;
     }
+    
     public function listTenants(){
         if(!$db) initAdapter();
-        $result = $db->select('SELECT `t_name` FROM `tenants` ') ;
+        $result = $db->select('SELECT `t_name` FROM `tenants` ;') ;
         return $result;
     
     public function getActive(){
@@ -36,13 +41,17 @@ class LogModel{
         $result = $db->select('SELECT * FROM `sec_log` WHERE `ts_out` = NULL') ;
         return $result;
     }
-    
+    public function history(){
+        if(!$db) initAdapter();
+        $result = $db->select('SELECT * FROM `sec_log`') ;
+        return $result;
+    }
     public function countActive(){
         if(!$db) initAdapter();
         $result = $db->query('SELECT count(*) FROM `sec_log` WHERE `ts_out` = NULL') ;
         return $result;
     }
-    public function createEntry($vname, $tname){
+    public function LogIn($vname, $tname){
         if(!$db) initAdapter();
         $v_name = $db->secureField($vname);
         $t_name = $db->secureField($tname);
