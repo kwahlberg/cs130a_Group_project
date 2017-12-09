@@ -19,7 +19,7 @@ tr:nth-child(even) {
 </style>  
 <body>    
        
-    <form action='LogModel.php?page="login"' autocomplete='on' method='POST'>
+    <form action='index.php?page="login"' autocomplete='on' method='POST'>
       <p>Visitor name
       <input type='text' name='v_name' maxlength='30' required></p>
       <p>Tenant name
