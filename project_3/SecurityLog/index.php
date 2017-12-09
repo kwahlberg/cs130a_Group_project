@@ -3,19 +3,9 @@
   if (isset($_GET['source'])) {
     highlight_file($_SERVER['SCRIPT_FILENAME']);
     exit;
-  }
-
-
-//------------------------------------------------------------
-  require_once('connection.php');
-
-  if (isset($_GET['controller']) && isset($_GET['action'])) {
-    $controller = $_GET['controller'];
-    $action     = $_GET['action'];
-  } else {
-    $controller = 'pages';
-    $action     = 'home';
-  }
-
-  require_once('views/layout.php');
+  }  
+    include_once("controllers/Controller.php");  
+      
+    $controller = new Controller();  
+    $controller->invoke();  
 ?>
