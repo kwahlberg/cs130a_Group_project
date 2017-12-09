@@ -4,7 +4,7 @@
     highlight_file($_SERVER['SCRIPT_FILENAME']);
     exit;
   }  
-    include_once("app/controllers/Controller.php");  
+    include_once("phplib/app/controllers/Controller.php");  
       
     $controller = new Controller();  
     $controller->invoke();  
