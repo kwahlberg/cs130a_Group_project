@@ -26,7 +26,7 @@ tr:nth-child(even) {
       <input type='text' name='t_name' maxlength='30' required></p>
       <select name="tenant">';
 <?php
-foreach($tenants as $tenant){
+foreach($model->tenants as $tenant){
   echo '<option value="' .$tenant['t_name']. '">' .$tenant['t_name']. '</option>';
     
 }
@@ -42,7 +42,7 @@ foreach($tenants as $tenant){
       echo " <tr><td> $visitor['v_id']</td>";
       echo " <td> $visitor['t_name']</td>";
       echo " <td> $visitor['ts_in']</td>";
-      echo " <td> $visitor['ts_out']</td></tr>";
+      echo " <td> 'Currently Inside' </td></tr>";
     }
 ?>
       </table>
