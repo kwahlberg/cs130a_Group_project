@@ -8,6 +8,7 @@ class LogModel{
     public $history;
     public $count;
     public $mean_visit;
+    public $tenants;
     
     private function __construct() {
                 require_once('phplib/app/models/dbadapter.php');
@@ -23,7 +24,7 @@ class LogModel{
      public function meanVisit(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log') ;
-         $mean_visit = $result;
+         $this->mean_visit = $result;
         return $result;
     }
     
@@ -42,24 +43,25 @@ class LogModel{
     public function listTenants(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT `t_name` FROM `tenants` ') ;
+        $this->tenants = $result;
         return $result;
     
     public function getActive(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT * FROM `sec_log` WHERE `ts_out` = NULL') ;
-        visitors_in = $result;
+        $this->visitors_in = $result;
         return $result;
     }
     public function history(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT * FROM `sec_log`') ;
-        $history = $result;
+        $this->history = $result;
         return $result;
     }
     public function countActive(){
         if(!$db) initAdapter();
         $result = $db->query('SELECT count(*) FROM `sec_log` WHERE `ts_out` = NULL') ;
-        $count = $result;
+        $this->count = $result;
         return $result;
     }
     public function LogIn($vname, $tname){
