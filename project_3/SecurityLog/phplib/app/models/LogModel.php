@@ -1,6 +1,13 @@
 <?php
+
+
+//----------------------------------------------
 class LogModel{
     protected static $db;
+    public $visitors_in;
+    public $history;
+    public $count;
+    public $mean_visit;
     
     private function __construct() {
                 require_once('phplib/app/models/dbadapter.php');
@@ -16,6 +23,7 @@ class LogModel{
      public function meanVisit(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log') ;
+         $mean_visit = $result;
         return $result;
     }
     
@@ -33,22 +41,25 @@ class LogModel{
     
     public function listTenants(){
         if(!$db) initAdapter();
-        $result = $db->select('SELECT `t_name` FROM `tenants` ;') ;
+        $result = $db->select('SELECT `t_name` FROM `tenants` ') ;
         return $result;
     
     public function getActive(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT * FROM `sec_log` WHERE `ts_out` = NULL') ;
+        visitors_in = $result;
         return $result;
     }
     public function history(){
         if(!$db) initAdapter();
         $result = $db->select('SELECT * FROM `sec_log`') ;
+        $history = $result;
         return $result;
     }
     public function countActive(){
         if(!$db) initAdapter();
         $result = $db->query('SELECT count(*) FROM `sec_log` WHERE `ts_out` = NULL') ;
+        $count = $result;
         return $result;
     }
     public function LogIn($vname, $tname){
@@ -61,7 +72,7 @@ HEREDOC;
 
         if($db->query($myquery)){
                 $v_id = $db->getId();
-                $message = 'Thank you ' .$v_name. 'your entry time is ' .$db->query('SELECT `ts_in` FROM `sec_log` WHERE v_id = '.$v_id);
+                $message = 'Thank you ' .$v_name. 'your entry time is ' .$db->query('SELECT `ts_in` FROM `sec_log` WHERE `v_id` = '.$v_id);
                 }else{
                     $message = 'something went wrong ';
              
@@ -72,4 +83,22 @@ HEREDOC;
     }
     
 }
+
+//-----------------------------------------Not implemented
+
+class visitor(){
+    public $v_name;
+    public $t_name;
+    public $ts_in;
+    public $ts_out;
+        public function __construct($vname, $tname, $tsin, $tsout=null){
+            $v_name = $vname;
+            $t_name = $tname;
+            $ts_in = $ts_in;
+            $this->ts_out = ($ts_out) ?: 'Currently in building';
+        }    
+    
+    
+}
+    
 ?>
