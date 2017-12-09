@@ -10,8 +10,9 @@
           
          public function invoke()  
          {  
-              if (!isset($page = $_GET['page']))  
+              if (!isset($_GET['page']))  
               {  
+                   $page = $_GET['page'];
                    if($page == 'home') { 
                        $tenants = $model->listTenants();
                        $active = $model->getActive();
