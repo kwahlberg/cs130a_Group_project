@@ -18,7 +18,7 @@
 <body>
 
   <div id="login-form">
-    <h1>You are now logged out!</h1>
+    <h1>You are now logged in!</h1>
     <p>Click <a href="index.php">here</a> to return to the main page.</p>
   </div>
 
