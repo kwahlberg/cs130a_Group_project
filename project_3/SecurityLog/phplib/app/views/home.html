@@ -23,7 +23,7 @@
     <form action='index.php?page="login"' autocomplete='on' method='POST'>
       <p class="label">Visitor Name</p>
       <p><input type='text' name='v_name' maxlength='30' required /></p>
-      <p class="label">Tenant Name:</p>
+      <p class="label">Tenant Name</p>
       <p><input type='text' name='t_name' maxlength='30' required /></p>
       <p><select name="tenant">
 <?php
@@ -37,6 +37,7 @@ foreach($model->tenants as $tenant){
 
 
   <div id="current-visitors">
+    <h1>Current Visitors</h1>
 
     <table>
       <tr>
