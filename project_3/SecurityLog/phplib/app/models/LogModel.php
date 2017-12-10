@@ -1,5 +1,5 @@
 <?php
-
+require_once('phplib/app/models/dbadapter.php');
 
 //----------------------------------------------
 class LogModel{
@@ -11,13 +11,13 @@ class LogModel{
     public $tenants;
     
     private function __construct() {
-                require_once('phplib/app/models/dbadapter.php');
+                
                 //$db_login = parse_ini_file('secure/config.ini');
+                //you will need to set up your own ini file
                 $db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
                 if (!$db) echo "<p>Cannot connect to database</p>";
     }
     public function initAdapter(){
-        require_once('phplib/app/models/dbadapter.php');
         $db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
         if (!$db) echo "<p>Cannot connect to database</p>";
     }
