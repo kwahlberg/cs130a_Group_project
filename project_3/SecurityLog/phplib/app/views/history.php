@@ -35,7 +35,7 @@
         <td>time out</td>
       </tr>
 <?php
-foreach($model->visitors_in as $visitor){
+foreach($model->history as $visitor){
   echo "<tr>" .
     "<td>$visitor['v_id']</td>" .
     "<td>$visitor['t_name']</td>" .
