@@ -1,6 +1,4 @@
 
-<html>
-	<body>
 	
 <?php
 require_once('phplib/app/models/dbadapter.php');
@@ -112,6 +110,3 @@ require_once('phplib/app/models/dbadapter.php');
     
 ?>
 
-	
-	</body>
-</html>
