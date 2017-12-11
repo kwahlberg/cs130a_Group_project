@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 
 <html lang="en">
 <head>
@@ -20,7 +20,7 @@
   <div id="login-form">
     <h1>Register Your Visit!</h1>
 
-    <form action='index.php?page="login"' autocomplete='on' method='POST'>
+    <form action='../../../index.php?page="login"' autocomplete='on' method='POST'>
       <p class="label">Visitor Name</p>
       <p><input type='text' name='v_name' maxlength='30' required /></p>
       <p class="label">Tenant Name</p>
@@ -56,10 +56,10 @@ foreach($model->tenants as $tenant){
 <?php
 foreach($model->visitors_in as $visitor){
   echo "<tr>" .
-    "<td>$visitor['v_id']</td>" .
-    "<td>$visitor['t_name']</td>" .
-    "<td>$visitor['ts_in']</td>" .
-    "<td>'Currently Inside'</td>" .
+    "<td>".$visitor['v_id']."</td>" .
+    "<td>".$visitor['t_name']."</td>" .
+    "<td>".$visitor['ts_in']."</td>" .
+    "<td>".'Currently Inside'."</td>" .
     "</tr>";
   }
 ?>

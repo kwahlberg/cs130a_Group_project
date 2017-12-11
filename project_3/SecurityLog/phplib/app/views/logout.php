@@ -19,7 +19,7 @@
 
   <div id="login-form">
     <h1>You are now logged in!</h1>
-    <p>Click <a href="index.php">here</a> to return to the main page.</p>
+    <p>Click <a href="home.php">here</a> to return to the main page.</p>
   </div>
 
   <script src="js/scripts.js"></script>

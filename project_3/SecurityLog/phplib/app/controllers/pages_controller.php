@@ -15,6 +15,7 @@
     public function history() {
       require_once('views/pages/history.php');
     }
+		
     public function error() {
       require_once('views/pages/error.php');
     }

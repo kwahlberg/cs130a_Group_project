@@ -37,10 +37,10 @@
 <?php
 foreach($model->visitors_in as $visitor){
   echo "<tr>" .
-    "<td>$visitor['v_id']</td>" .
-    "<td>$visitor['t_name']</td>" .
-    "<td>$visitor['ts_in']</td>" .
-    "<td>'Currently Inside'</td>" .
+    "<td>".$visitor['v_id']."</td>" .
+    "<td>".$visitor['t_name']."</td>" .
+    "<td>".$visitor['ts_in']."</td>" .
+    "<td>".'Currently Inside'."</td>" .
     "</tr>";
   }
 ?>
