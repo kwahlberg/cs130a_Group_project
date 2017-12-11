@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 
 <html lang="en">
 <head>
@@ -20,18 +20,17 @@
   <div id="login-form">
     <h1>Register Your Visit!</h1>
 
-    <form action='../../../index.php?page="login"' autocomplete='on' method='POST'>
+    <form action='index.php?page="login"' autocomplete='on' method='POST'>
       <p class="label">Visitor Name</p>
       <p><input type='text' name='v_name' maxlength='30' required /></p>
-      <p class="label">Tenant Name</p>
-      <p><input type='text' name='t_name' maxlength='30' required /></p>
-      <p><select name="tenant">
+      <p><select name="t_name">
 <?php
 foreach($model->tenants as $tenant){
   echo '<option value="' . $tenant['t_name'] . '">' . $tenant['t_name'] . '</option>';
 }
 ?>
-      </select><input type="submit" value="Log Visit" /></p>
+        </select></p>
+      <p><input type="submit" value="Log Visit" /></p>
     </form>
   </div>
 
@@ -47,14 +46,19 @@ foreach($model->tenants as $tenant){
         <th>Time In</th>
         <th>Time Out</th>
       </tr>
+      <tr>
+        <td>visitor </td>
+        <td>tenant name</td>
+        <td>time in</td>
+        <td>time out</td>
+      </tr>
 <?php
 foreach($model->visitors_in as $visitor){
   echo "<tr>" .
-    "<td>".$visitor['v_id']."</td>" .
-    "<td>".$visitor['v_name']."</td>" .
-    "<td>".$visitor['t_name']."</td>" .
-    "<td>".$visitor['ts_in']."</td>" .
-    "<td>".'Currently Inside'."</td>" .
+    "<td>$visitor['v_id']</td>" .
+    "<td>$visitor['t_name']</td>" .
+    "<td>$visitor['ts_in']</td>" .
+    "<td>'Currently Inside'</td>" .
     "</tr>";
   }
 ?>
