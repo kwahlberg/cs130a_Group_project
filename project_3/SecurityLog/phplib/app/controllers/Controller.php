@@ -34,7 +34,10 @@
 				}
 				else 
 				{ 
-					include_once('phplib/app/views/error.php');
+					 
+					$tenants = $model->listTenants();
+					$active = $model->getActive();
+					include_once('phplib/app/views/home.php');
 				}  
 			}  
 		} 
