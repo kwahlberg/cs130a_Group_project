@@ -28,11 +28,11 @@
 <?php
 foreach($model->visitors_in as $visitor){
   echo "<tr>" .
-    "<td>$visitor['v_id']</td>" .
-    "<td>$visitor['v_name']</td>" .
-    "<td>$visitor['t_name']</td>" .
-    "<td>$visitor['ts_in']</td>" .
-    "<td><form action='index.php?page=loggedout'><button name='v_id' type='submit' value=$visitor['v_id']>" .
+    "<td>".$visitor['v_id']."</td>" .
+    "<td>".$visitor['v_name']."</td>" .
+    "<td>".$visitor['t_name']."</td>" .
+    "<td>".$visitor['ts_in']."</td>" .
+    "<td><form action='index.php?page=loggedout'><button name='v_id' type='submit' value=".$visitor['v_id'].">" .
     "Log Out</button></td>" .
     "</tr>";
   }
