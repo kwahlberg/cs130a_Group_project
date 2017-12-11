@@ -15,20 +15,12 @@ require_once('phplib/app/models/dbadapter.php');
     
     public function __construct() {
 			require_once('phplib/app/models/dbadapter.php');
-			$db_login = parse_ini_file('secure/config.ini');
+			//$db_login = parse_ini_file('secure/config.ini');
 			$db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
 			//$db = new dbAdapter('/students/tmach4/public_html/cs130a/Group/config.ini');
 			
 			if (!$db) echo "<p>Cannot connect to database</p>";
-
-    private function __construct() {
-
-			//$db_login = parse_ini_file('secure/config.ini');
-			//you will need to set up your own ini file
-			$db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
-			if (!$db) echo "<p>Cannot connect to database</p>";
-
-    }
+		}
 		
     public function initAdapter(){
 			require_once('phplib/app/models/dbadapter.php');
