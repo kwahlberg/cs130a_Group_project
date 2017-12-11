@@ -1,10 +1,10 @@
 
 	
 <?php
-require_once('phplib/app/models/dbadapter.php');
+include_once('phplib/app/models/dbadapter.php');
 //----------------------------------------------
-	class LogModel{
-    protected static $db;
+class LogModel{
+    public static $db;
     public $visitors_in;
     public $history;
     public $count;
@@ -14,74 +14,78 @@ require_once('phplib/app/models/dbadapter.php');
     public function __construct() {
 			require_once('phplib/app/models/dbadapter.php');
 			//$db_login = parse_ini_file('secure/config.ini');
-			$db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
+			self::$db = new dbAdapter('/students/kwahlber/public_html/cs130a/secure/config.ini');
 			//$db = new dbAdapter('/students/tmach4/public_html/cs130a/Group/config.ini');
 			
-			if (!$db) echo "<p>Cannot connect to database</p>";
+			if (!self::$db) echo "<p>Cannot connect to database</p>";
 		}
 		
     public function initAdapter(){
 			require_once('phplib/app/models/dbadapter.php');
-			$db = new dbAdapter('/students/kwahlber/cs130a/group/MVC/config.ini');
-			if (!$db) echo "<p>Cannot connect to database</p>";
+			self::$db = new dbAdapter('/students/kwahlber/public_html/cs130a/secure/config.ini');
+			if (!self::$db) echo "<p>Cannot connect to database</p>";
     }
 		
     public function meanVisit(){
-			if(!$db) initAdapter();
-			$result = $db->select('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log');
-			$this->mean_visit = $result;
+			//if(!self::$db) initAdapter();
+			$result = self::$db->query('SELECT count(*), AVG(TIME_TO_SEC(TIMEDIFF(`ts_in`,`ts_out`))) as avdiff FROM  sec_log');
+			$mean_visit = $result;
 			return $result;
     }
     
-    public function logOut($vname, $v_id){
-			if(!$db) initAdapter();
-			$query = 'INSERT INTO `sec_log`(`ts_out`) VALUES(NOW()) WHERE `v_name` = ' .$db->secureField($vname);
-			if($result = $db->query($query)){
-				$message = 'Thank you ' .$db->secureField($vname). 'your exit time is ' .$db->query('SELECT `ts_out` FROM `sec_log` WHERE v_id = '.$v_id);
+    public function logOut($v_id){
+        echo $v_id;
+			//if(!self::$db) initAdapter();UPDATE sec_log SET ts_out=NOW() WHERE v_id = 1;
+			$query = 'UPDATE sec_log SET ts_out=NOW() WHERE v_id ='. $v_id;
+			if($result = self::$db->query($query)){
+				$message = 'Thank you ';
 			}
 			else{
 				$message = 'something went wrong ';
 			}
-			return $message;
+			//return $message;
     }
     
     public function listTenants(){
-			if(!$db) initAdapter();
-			$result = $db->select('SELECT `t_name` FROM `tenants` ') ;
-			$this->tenants = $result;
+			//if(!self::$db) self::initAdapter();
+			$result = self::$db->select('SELECT `t_name` FROM `tenants` ') ;
+			$tenants = $result;
+            //print_r($result);
 			return $result;
 		}
     
     public function getActive(){
-			if(!$db) initAdapter();
-			$result = $db->select('SELECT * FROM `sec_log` WHERE `ts_out` = NULL') ;
-			$this->visitors_in = $result;
+			//if(!self::$db) initAdapter();
+			$result = self::$db->select('SELECT * FROM `sec_log` WHERE `ts_out` IS NULL') ;
+			$visitors_in = $result;
 			return $result;
     }
 	
     public function history(){
-			if(!$db) initAdapter();
-			$result = $db->select('SELECT * FROM `sec_log`') ;
-			$this->history = $result;
+			//if(!self::$db) initAdapter();
+			$result = self::$db->select('SELECT * FROM `sec_log`') ;
+			$history = $result;
 			return $result;
     }
 	
     public function countActive(){
-			if(!$db) initAdapter();
-			$result = $db->query('SELECT count(*) FROM `sec_log` WHERE `ts_out` = NULL') ;
-			$this->count = $result;
+			
+			$result = self::$db->query('SELECT count(*) FROM `sec_log` WHERE `ts_out` IS NULL') ;
+			$count = $result;
 			return $result;
     }
 	
     public function LogIn($vname, $tname){
-			if(!$db) initAdapter();
-			$v_name = $db->secureField($vname);
-			$t_name = $db->secureField($tname);
-			$myquery = "INSERT INTO `sec_log`(`v_name`, `t_name`,`ts_out`) VALUES ('".$v_name."','".$t_name."', NULL)";
+			
+			$v_name = self::$db->secureField($vname);
+			$t_name = self::$db->secureField($tname);
+            echo $v_name;
+			$myquery = "INSERT INTO sec_log (v_name, t_name) VALUES (".$v_name.",".$t_name.")";
 
-			if($db->query($myquery)){
-				$v_id = $db->getId();
-				$message = 'Thank you ' .$v_name. 'your entry time is ' .$db->query('SELECT `ts_in` FROM `sec_log` WHERE `v_id` = '.$v_id);
+			if(self::$db->query($myquery)){
+				$v_id = self::$db->getId();
+				$message = 'Thank you ' ;
+                //.$v_name. 'your entry time is ' .self::$db->query('SELECT `ts_in` FROM `sec_log` WHERE `v_id` = '.$v_id);
 			}
 			else{
 				$message = 'something went wrong ';

@@ -17,10 +17,10 @@
 
 <body>
 
-  <div id="login-form">
-    <h1>You are now logged in!</h1>
-    <p>Click <a href="index.php?page=home">here</a> to return to the main page.</p>
+  <div id="current-visitors">
+    <h1>The Average Visit Is: <?php echo abs($mean[0]['avdiff']/60); ?> Minutes</h1>
 
+   
   </div>
 
   <script src="js/scripts.js"></script>

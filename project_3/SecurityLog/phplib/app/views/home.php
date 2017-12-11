@@ -20,12 +20,12 @@
   <div id="login-form">
     <h1>Register Your Visit!</h1>
 
-    <form action='index.php?page="login"' autocomplete='on' method='POST'>
+    <form action='index.php?page=login' autocomplete='on' method='POST'>
       <p class="label">Visitor Name</p>
       <p><input type='text' name='v_name' maxlength='30' required /></p>
       <p><select name="t_name">
 <?php
-foreach($model->tenants as $tenant){
+foreach($tenants as $tenant){
   echo '<option value="' . $tenant['t_name'] . '">' . $tenant['t_name'] . '</option>';
 }
 ?>
@@ -45,21 +45,21 @@ foreach($model->tenants as $tenant){
         <th>Visiting</th>
         <th>Time In</th>
         <th>Time Out</th>
+          <th>Log Out</th>
       </tr>
-      <tr>
-        <td>visitor </td>
-        <td>tenant name</td>
-        <td>time in</td>
-        <td>time out</td>
-      </tr>
+    
 <?php
-foreach($model->visitors_in as $visitor){
+        //print_r($active);
+foreach($active as $visitor){
   echo "<tr>" .
-    "<td>$visitor['v_id']</td>" .
-    "<td>$visitor['t_name']</td>" .
-    "<td>$visitor['ts_in']</td>" .
+    "<td>" .$visitor['v_id']. "</td>" .
+    "<td>".$visitor['v_name']."</td>" .
+    "<td>".$visitor['t_name']."</td>" .
+    "<td>".$visitor['ts_in']."</td>" .
     "<td>'Currently Inside'</td>" .
-    "</tr>";
+    "<td><form action='index.php?page=logout' method='POST'>".
+    "<button name='v_id' type='submit' value='".$visitor['v_id']."'>Logout</button>
+    </td></tr>";
   }
 ?>
     </table>

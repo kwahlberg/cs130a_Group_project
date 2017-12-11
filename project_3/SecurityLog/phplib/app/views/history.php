@@ -27,21 +27,22 @@
         <th>Visiting</th>
         <th>Time In</th>
         <th>Time Out</th>
+          
       </tr>
-      <tr>
-        <td>visitor </td>
-        <td>tenant name</td>
-        <td>time in</td>
-        <td>time out</td>
-      </tr>
+    
 <?php
-foreach($model->history as $visitor){
+        //print_r($active);
+foreach($history as $visitor){
   echo "<tr>" .
-    "<td>".$visitor['v_id']."</td>" .
+    "<td>" .$visitor['v_id']. "</td>" .
+    "<td>".$visitor['v_name']."</td>" .
     "<td>".$visitor['t_name']."</td>" .
-    "<td>".$visitor['ts_in']."</td>" .
-    "<td>".'Currently Inside'."</td>" .
-    "</tr>";
+    "<td>".$visitor['ts_in']."</td>" ;
+    if($visitor['ts_out']){
+        echo '<td>'.$visitor['ts_out'].'</td>';
+    }else{
+    echo "<td>'Currently Inside'</td>" ;
+    }
   }
 ?>
     </table>

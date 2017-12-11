@@ -11,7 +11,7 @@ class dbAdapter {
 			if(!isset(self::$connection)) {
 				$db_login = parse_ini_file($this->config);
 				self::$connection = new mysqli($db_login['host'],$db_login['username'],$db_login['psk'],$db_login['dbname']);
-			echo 'trying to connect';
+			//echo 'trying to connect';
 				
 			}
 
