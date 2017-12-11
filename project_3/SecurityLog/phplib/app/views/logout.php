@@ -16,7 +16,28 @@
 </head>
 
 <body>
-
+  <table>
+      <tr>
+        <th>ID</th>
+        <th>Visitor Name</th>
+        <th>Visiting</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+      </tr>
+      
+<?php
+foreach($model->visitors_in as $visitor){
+  echo "<tr>" .
+    "<td>$visitor['v_id']</td>" .
+    "<td>$visitor['v_name']</td>" .
+    "<td>$visitor['t_name']</td>" .
+    "<td>$visitor['ts_in']</td>" .
+    "<td><form action='index.php?page=loggedout'><button name='v_id' type='submit' value=$visitor['v_id']>" .
+    "Log Out</button></td>" .
+    "</tr>";
+  }
+?>
+  </table>
   <div id="login-form">
     <h1>You are now logged in!</h1>
     <p>Click <a href="home.php">here</a> to return to the main page.</p>
