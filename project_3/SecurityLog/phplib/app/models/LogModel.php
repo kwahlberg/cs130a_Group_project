@@ -13,16 +13,13 @@ class LogModel{
     
     public function __construct() {
 			require_once('phplib/app/models/dbadapter.php');
-			//$db_login = parse_ini_file('secure/config.ini');
-			self::$db = new dbAdapter('/students/kwahlber/public_html/cs130a/secure/config.ini');
-			//$db = new dbAdapter('/students/tmach4/public_html/cs130a/Group/config.ini');
-			
+			self::$db = new dbAdapter('secure/config.ini');
 			if (!self::$db) echo "<p>Cannot connect to database</p>";
 		}
 		
     public function initAdapter(){
 			require_once('phplib/app/models/dbadapter.php');
-			self::$db = new dbAdapter('/students/kwahlber/public_html/cs130a/secure/config.ini');
+			self::$db = new dbAdapter('secure/config.ini');
 			if (!self::$db) echo "<p>Cannot connect to database</p>";
     }
 		
